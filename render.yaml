@@ -1,31 +1,21 @@
-name: PDB
+version: 1
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  render:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-
-    - name: Run Python script
-      run: |
-        python main.py
-        
+templates:
+  - name: Python package
+    conditions:
+      - and:
+          - repository_path: "pk3011/PDB"
+          - language: python
+    actions:
+      - action: clone
+        arguments:
+          clone_depth: 1
+      - action: install_dependencies
+        arguments:
+          package_manager: pip
+          requirements_path: requirements.txt
+      - action: run_script
+        name: Render documentation
+        script: |
+          cd PDB
+          python setup.py build_sphinx
