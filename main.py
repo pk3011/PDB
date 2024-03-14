@@ -8,7 +8,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 dotenv.load_dotenv()
 
 Bot = Client(
-    "Pixeldrain-Bot",
+    "pdup_bot",
     bot_token = os.environ["7016046750:AAG2YUQI3CT9tFiBZ-4F4cn8YUzOv-dkwDs"],
     api_id = int(os.environ["1747265"]),
     api_hash = os.environ["47f031293f55361c76c27da11916179b"]
