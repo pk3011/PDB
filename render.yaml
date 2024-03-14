@@ -1,21 +1,15 @@
-version: 1
+services:
+  # A Docker web service
+  - type: web
+    name: PDB
+    env: python
+    startCommand: python3 main.py
+    buildCommand: pip3 install -U -r requirements.txt
+    repo: https://github.com/pk3011/PDB.git # optional
+    region: oregon # optional (defaults to oregon)
+    plan: free # optional (defaults to starter)
+    branch: main # optional (defaults to master)
+    numInstances: 1 # optional (defaults to 1)
+    healthCheckPath: /
 
-templates:
-  - name: Python package
-    conditions:
-      - and:
-          - repository_path: "pk3011/PDB"
-          - language: python
-    actions:
-      - action: clone
-        arguments:
-          clone_depth: 1
-      - action: install_dependencies
-        arguments:
-          package_manager: pip
-          requirements_path: requirements.txt
-      - action: run_script
-        name: Render documentation
-        script: |
-          cd PDB
-          python setup.py build_sphinx
+#End of yaml
